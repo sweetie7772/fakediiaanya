@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Паспорт громадянина України</title>
+    <link rel="stylesheet" href="/index.css" />
+
+    <!-- Додаємо для iPhone/PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Паспорт" />
+
+    <!-- Іконка для iPhone -->
+    <link rel="apple-touch-icon" href="./icon.png" />
+
+    <!-- Маніфест (для Android і PWA) -->
+    <link rel="manifest" href="./manifest.json" />
+  </head>
+  <body>
+    <div class="certificate">
+      <div class="card" id="passportCard">
+        <!-- Лицьова сторона -->
+        <div class="card-face card-front">
+          <div class="title">Паспорт громадянина<br />України</div>
+
+          <div class="bornDate">
+            <img src="./anya.jpg" alt="" class="photo" />
+            <div class="bornDate2">
+              <div class="wrap">
+                <div>Дата</div>
+                <div>народження:</div>
+              </div>
+              27.01.2008
+              <br />
+              <div class="wrap">
+                <div>Номер:</div>
+              </div>
+              34008583167
+              <img
+                src="./5323269392965505402-removebg-preview.png"
+                alt=""
+                width="80"
+              />
+            </div>
+          </div>
+
+          <marquee class="mark" scrollamount="3">
+            Документ діє під час воєнного стану. Ой у лузі червона калина
+            похилилася, чогось наша славна України зажурилася. А ми тую червону
+            калину підіймемо, а ми нашу славну Україну, гей, гей,
+            розвеселимо!Документ діє під час воєнного стану. Ой у лузі червона
+            калина похилилася, чогось наша славна України зажурилася. А ми тую
+            червону калину підіймемо, а ми нашу славну Україну, гей, гей,
+            розвеселимо!Документ діє під час воєнного стану. Ой у лузі червона
+            калина похилилася, чогось наша славна України зажурилася. А ми тую
+            червону калину підіймемо, а ми нашу славну Україну, гей, гей,
+            розвеселимо!
+          </marquee>
+
+          <div class="carts">
+            <div class="name">
+              <span>Галіндзовська</span>
+              <span>Анна</span>
+              <span>Володимирівна</span>
+            </div>
+            <div class="icon">
+              <img
+                src="./изображение_2025-09-11_133951239-removebg-preview.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Зворотня сторона -->
+        <div class="card-face card-back">
+          <div class="timer" id="timerText">Код діятиме ще 03:00 хв</div>
+          <img class="qr" width="300px" src="./qr.jpg" alt="" />
+          <img src="./qr2.png" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Нижній бар -->
+    <div class="bottom-bar">
+      <div>
+        <img width="55" src="./strichka.png" alt="Стрічка" />
+        <span>Стрічка</span>
+      </div>
+      <div>
+        <img width="75" src="./document.png" alt="Документи" />
+        <span>Документи</span>
+      </div>
+      <div>
+        <img width="60" src="./service.png" alt="Сервіси" />
+        <span>Сервіси</span>
+      </div>
+      <div>
+        <img width="45" src="./menu.png" alt="Меню" />
+        <span>Меню</span>
+      </div>
+    </div>
+
+    <script>
+      const card = document.getElementById("passportCard");
+      const timerEl = document.getElementById("timerText");
+      let countdown;
+      let timeLeft = 180;
+
+      function updateTimer() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        let formatted =
+          (minutes < 10 ? "0" : "") +
+          minutes +
+          ":" +
+          (seconds < 10 ? "0" : "") +
+          seconds;
+        timerEl.textContent = "Код діятиме ще " + formatted + " хв";
+      }
+
+      function startTimer() {
+        clearInterval(countdown);
+        timeLeft = 180;
+        updateTimer();
+
+        countdown = setInterval(() => {
+          if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerEl.textContent = "Час дії коду вийшов";
+            return;
+          }
+          updateTimer();
+          timeLeft--;
+        }, 1000);
+      }
+
+      card.addEventListener("click", () => {
+        card.classList.toggle("is-flipped");
+        if (card.classList.contains("is-flipped")) {
+          startTimer();
+        } else {
+          clearInterval(countdown);
+          timeLeft = 180;
+          timerEl.textContent = "Код діятиме ще 03:00 хв";
+        }
+      });
+    </script>
+  </body>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 0;
+      background: linear-gradient(
+        45deg,
+        rgba(150, 220, 255, 1),
+        rgba(120, 200, 255, 0.8),
+        rgba(160, 230, 200, 0.9),
+        rgba(200, 255, 220, 1),
+        rgba(170, 180, 255, 1),
+        rgba(200, 220, 255, 0.8),
+        rgba(240, 250, 200, 0.9),
+        rgba(220, 255, 230, 1),
+        rgba(200, 220, 255, 1),
+        rgba(180, 200, 255, 0.8),
+        rgba(200, 240, 180, 0.9),
+        rgba(220, 255, 240, 1),
+        rgba(150, 220, 255, 1)
+      );
+      background-size: 400% 400%;
+      animation: gradientFlow 10s ease-in-out infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
+    .certificate {
+      width: 360px;
+      height: 500px;
+      perspective: 1000px;
+      margin-bottom: 70px; /* щоб не перекривав нижній бар */
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .card.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .card-front {
+      background: linear-gradient(
+        to bottom,
+        rgba(210, 240, 255, 1) 0%,
+        rgba(225, 250, 240, 1) 50%,
+        rgba(215, 250, 220, 1) 100%
+      );
+    }
+
+    .card-back {
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+      transform: rotateY(180deg);
+      flex-direction: column;
+    }
+
+    .title {
+      font-size: 25px;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 15px;
+      padding-top: 25px;
+      padding-left: 20px;
+    }
+
+    .bornDate {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 0 15px;
+    }
+
+    .photo {
+      width: 130px;
+      height: 170px;
+      border-radius: 17px;
+      object-fit: cover;
+    }
+
+    .bornDate2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .wrap {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      font-family: "Roboto", Times, serif;
+      padding-top: 15px;
+      line-height: 1.2;
+    }
+
+    .name {
+      font-size: 25px;
+      font-family: "Roboto", Times, serif;
+      margin-top: 10px;
+      text-align: start;
+      padding: 0 15px 10px 20px;
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      width: 150px;
+    }
+
+    .name span {
+      display: block;
+    }
+
+    .carts {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .icon {
+      padding: 65px 10px 0 0;
+    }
+
+    .mark {
+      margin-top: 70px;
+      padding: 5px;
+      font-size: 13px;
+      font-weight: 200;
+      background: linear-gradient(90deg, #a8f0b9 0%, #90d8f5 100%);
+    }
+
+    .timer {
+      font-size: 15px;
+      margin-top: 15px;
+      color: #333;
+      font-weight: 200;
+    }
+
+    /* Нижній бар */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 60px;
+      background: black;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid #000000;
+    }
+
+    .bottom-bar div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      color: #000000;
+    }
+  </style>
+</html>
